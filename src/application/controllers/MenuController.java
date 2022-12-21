@@ -1,10 +1,7 @@
 package application.controllers;
 
 import application.actors.Employee;
-import application.menues.AdminMenu;
-import application.menues.ChairmanMenu;
-import application.menues.CoachMenu;
-import application.menues.LoginMenu;
+import application.menues.*;
 
 public class MenuController {
 
@@ -64,4 +61,14 @@ public class MenuController {
         adminMenu.menuLoop(dataController);
     }
 
+
+    public void treasuryMenu(DataController dataController) {
+        TreasuryMenu treasuryMenu = new TreasuryMenu("WELCOME TREASURER", "Please choose", new String[] {
+                "1. Print members in arrears",
+                "2. Change member arrears status",
+                "3. Print Club Economy",
+                "0. Logout"
+        });
+        treasuryMenu.menuLooping(dataController);
+    }
 }

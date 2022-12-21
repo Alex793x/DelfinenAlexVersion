@@ -23,6 +23,9 @@ public class SystemBoot {
 
         ListContainer.getInstance().getEmployeeList().put(new Employee(Employee.Privilege.COACH, "Alexthh", "Frida2020"),
                 new Person("Alex Holmberg",LocalDate.of(1993, 3, 2),"42237826",'M'));
+
+        ListContainer.getInstance().getEmployeeList().put(new Employee(Employee.Privilege.ACCOUNTANT, "account", "0000"),
+                new Person("Freddie",LocalDate.of(1993, 3, 2),"42237826",'M'));
         menuUserLoader();
     }
 
@@ -36,9 +39,7 @@ public class SystemBoot {
                 switch (currentUser.getPrivilege()) {
                     case ADMIN -> menuController.adminMenu(dataController);
                     case CHAIRMAN -> menuController.chairmanMenu(dataController);
-                    case ACCOUNTANT -> {
-
-                    }
+                    case ACCOUNTANT -> menuController.treasuryMenu(dataController);
                     case COACH -> menuController.coachMenu(dataController);
                     default -> SystemPrint.getInstance().printOutSomethingWentWrong();
                 } // End of Switch case

@@ -110,25 +110,30 @@ public class MembershipHandler {
         }
     }
 
+    public void printMembersArrears() {
+        SystemPrint.getInstance().printOut("-------------------------------------------------------------------");
+        System.out.printf("%-5s%-10s%-20s%-20s%s%n",
+                "ID",
+                "NAME",
+                "MEMBERSHIP-TYPE",
+                "MEMBERSHIP-STATUS",
+                "PAID STATUS");
+        SystemPrint.getInstance().printOut("-------------------------------------------------------------------");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        ListContainer.getInstance().getMemberList().forEach(
+                (membershipInfo, person) -> {
+                    if (!membershipInfo.isHasPaid()) {
+                        System.out.printf("%-5s%-10s%-20s%-20s%-5s%n",
+                                person.getID(),
+                                person.getName(),
+                                membershipInfo.getMemberType(),
+                                membershipInfo.isMembershipStatus(),
+                                membershipInfo.isHasPaid());
+                        SystemPrint.getInstance().printOut("");
+                    }
+                }
+        );
+    }
 
 
 

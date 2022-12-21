@@ -22,6 +22,7 @@ public class MembershipInfo {
 
     protected MemberType memberType;
     protected boolean membershipStatus = true;
+    protected boolean hasPaid = false;
     protected ArrayList<SwimmingDisciplineType> activeDisciplines;
     protected ArrayList<SwimmingDisciplineResult> resultList;
 
@@ -48,6 +49,10 @@ public class MembershipInfo {
     }
     public boolean isMembershipStatus() {return membershipStatus;}
 
+    public boolean isHasPaid() {
+        return hasPaid;
+    }
+
     // Setter -------------------------------------------------------------------
     public void setMemberType(MemberType memberType) {
         this.memberType = memberType;
@@ -55,4 +60,5 @@ public class MembershipInfo {
     public void setMembershipStatus() {
         membershipStatus = !membershipStatus;
     }
+    public void setHasPaid() {hasPaid = !hasPaid;}
 }

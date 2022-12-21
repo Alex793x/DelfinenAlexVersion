@@ -30,8 +30,6 @@ public class EmployeeHandler {
         if (foundEmployee != null) {
             ListContainer.getInstance().getEmployeeList().remove(foundEmployee);
             SystemPrint.getInstance().printOutEmployeeRemoved();
-        } else {
-            SystemPrint.getInstance().printOutEmployeeNotExist();
         }
     }
     
@@ -42,6 +40,17 @@ public class EmployeeHandler {
                 return set.getKey();
             }
         }
+        SystemPrint.getInstance().printOutEmployeeNotExist();
+        return null;
+    }
+
+    public Employee adminAccount() {
+        for (Map.Entry<Employee, Person> set : ListContainer.getInstance().getEmployeeList().entrySet()) {
+            if (!set.getKey().getUsername().equals("admin")) continue; {
+                return set.getKey();
+            }
+        }
+        SystemPrint.getInstance().printOutSomethingWentWrong();
         return null;
     }
 }
