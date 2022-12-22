@@ -55,7 +55,11 @@ public class ChairmanMenu extends Menu {
 
     private void editPersonInfo(DataController dataController) {
         if (!ListContainer.getInstance().getMemberList().isEmpty()) {
-            dataController.getPersonHandler().editInfo(dataController.getPersonHandler().findPerson());
+            try {
+                dataController.getPersonHandler().editInfo(dataController.getPersonHandler().findPerson());
+            } catch (NullPointerException e) {
+                SystemPrint.getInstance().printOutSomethingWentWrong();
+            }
         } else {
             SystemPrint.getInstance().printOutMemberListEmpty();
         }

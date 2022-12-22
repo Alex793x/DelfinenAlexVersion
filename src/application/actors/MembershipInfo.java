@@ -60,5 +60,9 @@ public class MembershipInfo {
     public void setMembershipStatus() {
         membershipStatus = !membershipStatus;
     }
-    public void setHasPaid() {hasPaid = !hasPaid;}
+    public void setHasPaid(boolean input) {
+        if (input) {
+            hasPaid = !hasPaid;
+        }
+    }
 }

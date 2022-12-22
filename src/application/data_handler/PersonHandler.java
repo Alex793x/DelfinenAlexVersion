@@ -32,17 +32,21 @@ public class PersonHandler {
         ArrayList<Person> possiblePersons = new ArrayList<>(ListContainer.getInstance().getMemberList().values().stream()
                 .filter(person -> person.getName().equals(name)).toList());
 
-        possiblePersons.forEach(
-                person -> SystemPrint.getInstance().printOut("ID: " + person.getID() + ", Name: " + person.getName()));
+        if (!possiblePersons.isEmpty()) {
+            possiblePersons.forEach(
+                    person -> SystemPrint.getInstance().printOut("ID: " + person.getID() + ", Name: " + person.getName()));
 
-        SystemPrint.getInstance().promptPersonID();
-        int ID = UI.getInstance().readInt();
-        for (Person person : ListContainer.getInstance().getMemberList().values()) {
+            SystemPrint.getInstance().promptPersonID();
+            int ID = UI.getInstance().readInt();
+            for (Person person : ListContainer.getInstance().getMemberList().values()) {
 
-            if (person.getID() != ID) continue; {
-                return person;
-            } // End of if statement
-        } // End of for loop
+                if (person.getID() != ID) continue; {
+                    return person;
+                } // End of if statement
+            } // End of for loop
+        } else {
+            SystemPrint.getInstance().printOutPersonNotExist();
+        }
         return null;
     } // End of method
 

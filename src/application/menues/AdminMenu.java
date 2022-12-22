@@ -39,7 +39,7 @@ public class AdminMenu extends Menu {
             switch (UI.getInstance().readInt()) {
                 case 1 -> dataController.getEmployeeHandler().findEmployee().setUsername(UI.getInstance().readUsername());
                 case 2 -> dataController.getEmployeeHandler().findEmployee().setPassword(UI.getInstance().readPassword());
-                case 3 -> dataController.getEmployeeHandler().adminAccount().setPassword(UI.getInstance().readUsername());
+                case 3 -> dataController.getEmployeeHandler().adminAccount().setUsername(UI.getInstance().readUsername());
                 case 4 -> dataController.getEmployeeHandler().adminAccount().setPassword(UI.getInstance().readPassword());
                 case 0 -> {return;}
                 default -> SystemPrint.getInstance().printOutInvalidInput();

@@ -14,8 +14,8 @@ public class TreasuryMenu extends Menu{
             printOptions();
             switch (UI.getInstance().readInt()) {
                 case 1 -> dataController.getMembershipHandler().printMembersArrears();
-                case 2 -> {}
-                case 3 -> {}
+                case 2 -> dataController.getMembershipHandler().checkOneMemberArrears(dataController);
+                case 3 -> dataController.getMembershipHandler().printClubEconomy();
                 case 0 -> {return;}
                 default -> SystemPrint.getInstance().printOutInvalidInput();
             }

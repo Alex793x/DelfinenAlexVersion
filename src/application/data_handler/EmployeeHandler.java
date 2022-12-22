@@ -46,7 +46,7 @@ public class EmployeeHandler {
 
     public Employee adminAccount() {
         for (Map.Entry<Employee, Person> set : ListContainer.getInstance().getEmployeeList().entrySet()) {
-            if (!set.getKey().getUsername().equals("admin")) continue; {
+            if (!set.getKey().getPrivilege().equals(Employee.Privilege.ADMIN)) continue; {
                 return set.getKey();
             }
         }

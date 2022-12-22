@@ -27,7 +27,7 @@ public class MenuController {
     public Employee login() {
         LoginMenu loginMenu = new LoginMenu("DELFINEN", "Please Choose", new String[]{
                 "1. Login",
-                "2. Exit"
+                "0. Exit"
         });
         return loginMenu.menuLoop();
     }
@@ -64,8 +64,8 @@ public class MenuController {
 
     public void treasuryMenu(DataController dataController) {
         TreasuryMenu treasuryMenu = new TreasuryMenu("WELCOME TREASURER", "Please choose", new String[] {
-                "1. Print members in arrears",
-                "2. Change member arrears status",
+                "1. Print all members arrears status",
+                "2. Check specific member arrears status",
                 "3. Print Club Economy",
                 "0. Logout"
         });

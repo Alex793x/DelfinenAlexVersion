@@ -103,14 +103,38 @@ public class UI {
 
     public Employee.Privilege privilege() {
         while(true) {
-            try {
-                return Employee.Privilege.valueOf(scanner.nextLine());
+            SystemPrint.getInstance().printPrivilegeOptions();
 
-            } catch (EnumConstantNotPresentException e) {
+            try {
+                switch (UI.singletonUI.readInt()) {
+                    case 1 -> {
+                        return Employee.Privilege.ADMIN;
+                    }
+                    case 2 -> {
+                        return Employee.Privilege.ACCOUNTANT;
+                    }
+                    case 3 -> {
+                        return Employee.Privilege.COACH;
+                    }
+                    default -> SystemPrint.getInstance().printOutInvalidInput();
+                }
+
+            } catch (EnumConstantNotPresentException | NullPointerException | IllegalArgumentException e) {
                 SystemPrint.getInstance().printOut(e.getMessage());
             }
         }
     }
+
+    public boolean changeHasPaid() {
+        SystemPrint.getInstance().promptMembershipHasPaid();
+        while(true) {
+            switch (readInt()) {
+                case 1 -> {return true;}
+                case 2 -> {return false;}
+                default -> SystemPrint.getInstance().printOutInvalidInput();
+            } // End of switch statement
+        } // End of while loop
+    } // End of method
 
 
     // LOGIN PROMPTS ----------------------------------------------------
@@ -123,6 +147,5 @@ public class UI {
         SystemPrint.getInstance().printOut("Please enter password: ");
         return scanner.nextLine();
     }
-
 
 }
