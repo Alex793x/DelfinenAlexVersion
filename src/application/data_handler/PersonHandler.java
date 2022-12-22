@@ -7,6 +7,8 @@ import application.utility.UI;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 public class PersonHandler {
 
@@ -77,4 +79,15 @@ public class PersonHandler {
             } // End of switch case
         } // End of while loop
     } // End of method
+
+
+    public Person getLastPerson() {
+        Collection<Person> keys = ListContainer.getInstance().getMemberList().values();
+        Iterator<Person> iterator = keys.iterator();
+        Person lastKey = null;
+        while (iterator.hasNext()) {
+            lastKey = iterator.next();
+        }
+        return lastKey;
+    }
 }

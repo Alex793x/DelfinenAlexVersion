@@ -16,9 +16,8 @@ public class CoachMenu extends Menu {
         printOptions();
 
             switch (UI.getInstance().readInt()) {
-                case 1 -> dataController.getMembershipHandler().findMembership(dataController).getResultList()
-                            .add(dataController.getMembershipHandler().createNewResult());
-                case 2 -> dataController.getMembershipHandler().deleteResult(dataController);
+                case 1 -> addNewSwimmingResult(dataController);
+                case 2 -> deleteSwimmingResult(dataController);
                 case 3 -> {
 
                 }
@@ -26,5 +25,15 @@ public class CoachMenu extends Menu {
                 default -> SystemPrint.getInstance().printOutInvalidInput();
             }
         }
+    }
+
+    private void addNewSwimmingResult(DataController dataController) {
+        dataController.getMembershipHandler().findMembership(dataController).getResultList()
+                .add(dataController.getMembershipHandler().createNewResult());
+
+    }
+
+    private void deleteSwimmingResult(DataController dataController) {
+        dataController.getMembershipHandler().deleteResult(dataController);
     }
 }

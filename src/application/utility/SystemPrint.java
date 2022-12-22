@@ -81,6 +81,10 @@ public class SystemPrint {
                 3. Coach""");
     }
 
+    public void promptEmployeeName() {
+        System.out.print("Please enter Employee name to add: ");
+    }
+
 
     // Result Prompts and prints ----------------------------------------
     public void promptLocation() {System.out.print("Please enter location of result: ");}

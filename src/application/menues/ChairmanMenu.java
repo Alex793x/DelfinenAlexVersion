@@ -1,6 +1,7 @@
 package application.menues;
 
 import actor_container.ListContainer;
+import application.actors.MembershipInfo;
 import application.controllers.DataController;
 import application.utility.SystemPrint;
 import application.utility.UI;
@@ -33,11 +34,16 @@ public class ChairmanMenu extends Menu {
         ListContainer.getInstance().getMemberList()
                 .put(dataController.getMembershipHandler().createNewMembership(),
                         dataController.getPersonHandler().createNewPerson());
+        if (dataController.getMembershipHandler().getLastLasMember().getMemberType()
+                .equals(MembershipInfo.MemberType.COMPETITIVE_SWIMMER)) {
+            dataController.getAssociationHandler().addAssociation(dataController);
+        }
     } // End of method
 
     private void deleteMemberByMembership(DataController dataController) {
         if (!ListContainer.getInstance().getMemberList().isEmpty()) {
             dataController.getMembershipHandler().deleteMembership(dataController);
+
         } else {
             SystemPrint.getInstance().printOutMemberListEmpty();
         }

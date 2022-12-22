@@ -16,10 +16,8 @@ public class AdminMenu extends Menu {
         while(true) {
             printOptions();
             switch (UI.getInstance().readInt()) {
-                case 1 -> ListContainer.getInstance().getEmployeeList()
-                            .put(dataController.getEmployeeHandler().createEmployee(),
-                                    dataController.getPersonHandler().createNewPerson());
-                case 2 -> dataController.getEmployeeHandler().deleteUser();
+                case 1 -> createNewUser(dataController);
+                case 2 -> deleteUser(dataController);
                 case 3 -> advancedMenu(dataController);
                 case 0 -> {return;}
                 default -> SystemPrint.getInstance().printOutInvalidInput();
@@ -27,7 +25,7 @@ public class AdminMenu extends Menu {
         } // End of while loop
     } // End of method
 
-    public void advancedMenu(DataController dataController) {
+    private void advancedMenu(DataController dataController) {
         while(true) {
             SystemPrint.getInstance().printOut("""
                     1. Change a users username
@@ -46,4 +44,15 @@ public class AdminMenu extends Menu {
             } // End of switch
         } // End of while loop
     } // End of method
+
+
+    private void createNewUser(DataController dataController) {
+        ListContainer.getInstance().getEmployeeList()
+                .put(dataController.getEmployeeHandler().createEmployee(),
+                        dataController.getPersonHandler().createNewPerson());
+    }
+
+    private void deleteUser(DataController dataController) {
+        dataController.getEmployeeHandler().deleteUser();
+    }
 }
