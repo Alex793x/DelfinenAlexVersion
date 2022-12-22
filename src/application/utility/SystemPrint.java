@@ -231,6 +231,12 @@ public class SystemPrint {
     }
 
 
+    // FILE WRITER AND READER PRINTS / PROMPTS ----------------------------
+    public void printOutFileNotExist() {
+        System.out.println("File does not exist");
+    }
+
+
 
 
 

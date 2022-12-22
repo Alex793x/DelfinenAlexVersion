@@ -7,6 +7,7 @@ import application.actors.MembershipInfo;
 import application.actors.Person;
 import application.controllers.DataController;
 import application.controllers.MenuController;
+import application.filehandler.FileWriter;
 import application.utility.SystemPrint;
 
 import java.time.LocalDate;
@@ -102,6 +103,11 @@ public class SystemBoot {
             ListContainer.getInstance().getAssociationHashSet().add(new CoachMemberAssociation<>(employee, membershipInfo, person));
             counter--;
         }
+        FileWriter fileWriter = new FileWriter();
+        fileWriter.writeToMemberList();
+        fileWriter.writeToEmployeeList();
+        fileWriter.writeToAssociationList();
+        fileWriter.writeToLoginCredentials();
     }
 
     public void createThousandResults() {
@@ -130,6 +136,8 @@ public class SystemBoot {
             }
 
         }
+        FileWriter fileWriter = new FileWriter();
+        fileWriter.writeToResultList();
 
     }
 }
