@@ -14,7 +14,7 @@ public abstract class Menu {
     }
 
     protected void printOptions() {
-        SystemPrint.getInstance().printOut(menuHeader);
+        SystemPrint.getInstance().printOut("\n"+menuHeader);
         for (String options : menuOptions) {
             SystemPrint.getInstance().printOut(options);
         }

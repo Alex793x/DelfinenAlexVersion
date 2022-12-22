@@ -1,6 +1,6 @@
 package actor_container;
 
-public class CoachMemberAssociation<Employee, MembershipInfo, Person> {
+public class CoachMemberAssociation<Employee, MembershipInfo, Person>{
 
     private Employee employee;
     private final MembershipInfo member;

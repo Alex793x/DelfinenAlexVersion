@@ -17,7 +17,7 @@ public class MembershipInfo {
         BREASTSTROKE,
         BUTTERFLY
     }
-    public record SwimmingDisciplineResult(String location, LocalDate dateOfEvent, int rank, boolean isCompetitive) {
+    public record SwimmingDisciplineResult(String location, LocalDate dateOfEvent, int swimTime , int rank, boolean isCompetitive) {
     }
 
     protected MemberType memberType;

@@ -2,7 +2,7 @@ package application.actors;
 
 import java.time.LocalDate;
 
-public class Person{
+public class Person {
     private String name;
     private final LocalDate age;
     private String phoneNumber;

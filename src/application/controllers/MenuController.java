@@ -35,16 +35,15 @@ public class MenuController {
     /*
      * This method is for coaches, and will only be accessible if employee login is a coach
      */
-    public void coachMenu(DataController dataController) {
+    public void coachMenu(DataController dataController, int ID) {
         CoachMenu coachMenu = new CoachMenu("WELCOME COACH", "Please choose ", new String[] {
                 "1. Add new swimming result",
                 "2. Delete swimming result",
-                "3. Print out all Swimmers associated with this account",
-                "4. Print out all results associated with this account",
-                "5. Enter \"Print Result Menu\"",
+                "3. Enter \"Print Swimmer Menu\"",
+                "4. Enter \"Print Result Menu\"",
                 "0. Logout"
         });
-        coachMenu.menuLoop(dataController);
+        coachMenu.menuLoop(dataController, ID);
     }
 
 

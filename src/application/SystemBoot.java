@@ -2,12 +2,14 @@ package application;
 
 import actor_container.ListContainer;
 import application.actors.Employee;
+import application.actors.MembershipInfo;
 import application.actors.Person;
 import application.controllers.DataController;
 import application.controllers.MenuController;
 import application.utility.SystemPrint;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class SystemBoot {
     Employee currentUser;
@@ -22,7 +24,7 @@ public class SystemBoot {
                 new Person("Madwill",LocalDate.of(1973, 1, 23),"23114355",'M'));
 
         ListContainer.getInstance().getEmployeeList().put(new Employee(Employee.Privilege.COACH, "Alexthh", "Frida2020"),
-                new Person("Alex Holmberg",LocalDate.of(1993, 3, 2),"42237826",'M'));
+                new Person("Alex",LocalDate.of(1993, 3, 2),"42237826",'M'));
 
         ListContainer.getInstance().getEmployeeList().put(new Employee(Employee.Privilege.ACCOUNTANT, "account", "0000"),
                 new Person("Freddie",LocalDate.of(1993, 3, 2),"42237826",'M'));
@@ -40,7 +42,7 @@ public class SystemBoot {
                     case ADMIN -> menuController.adminMenu(dataController);
                     case CHAIRMAN -> menuController.chairmanMenu(dataController);
                     case ACCOUNTANT -> menuController.treasuryMenu(dataController);
-                    case COACH -> menuController.coachMenu(dataController);
+                    case COACH -> menuController.coachMenu(dataController, currentUser.getID());
                     default -> SystemPrint.getInstance().printOutSomethingWentWrong();
                 } // End of Switch case
             } else {
@@ -48,5 +50,4 @@ public class SystemBoot {
             } // End of else statement
         } // End of while loop
     } // End of method
-
 }

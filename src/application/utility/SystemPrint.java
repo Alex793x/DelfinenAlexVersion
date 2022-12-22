@@ -1,5 +1,10 @@
 package application.utility;
 
+import actor_container.CoachMemberAssociation;
+import application.actors.Employee;
+import application.actors.MembershipInfo;
+import application.actors.Person;
+
 public class SystemPrint {
      private static final SystemPrint SingletonSystemPrint = new SystemPrint();
 
@@ -31,6 +36,7 @@ public class SystemPrint {
     }
     public void promptPersonChange() {
         System.out.println("""
+                
                 Please choose what to change:
                 1. Name
                 2. Phone number
@@ -41,6 +47,16 @@ public class SystemPrint {
         System.out.println("That Person does not exist\n");
     }
 
+    public void printOutSwimmerPrintMenu() {
+        System.out.println("""
+                
+                1. Print out all swimmers associated this account by Name
+                2. Print out all swimmers associated this account by age
+                3. Print out all swimmers associated this account by ID
+                4. Print out all swimmers associated this account by Gender
+                0. Cancel""");
+    }
+
 
     // MembershipInfo prints -------------------------------
     public void printOutMembershipStatusChange() {
@@ -49,6 +65,7 @@ public class SystemPrint {
 
     public void promptMembershipHasPaid() {
         System.out.println("""
+                
                 Would you like to change payment status?:
                 1. Yes
                 2. No""");
@@ -81,8 +98,10 @@ public class SystemPrint {
                 3. Coach""");
     }
 
-    public void promptEmployeeName() {
-        System.out.print("Please enter Employee name to add: ");
+    public void promptEmployeeName() {System.out.print("Please enter Employee name: ");}
+
+    public void printOutEmployeeNotExist() {
+        System.out.println("Employee does not exist\n");
     }
 
 
@@ -93,10 +112,54 @@ public class SystemPrint {
     public void promptIsCompetitive() {
         System.out.println(
                 """
+                
                 Please enter:
                 1. Competition
                 2. Training
-                """);}
+                """);
+    }
+
+    public void printOutResultMenu() {
+        System.out.println(
+                """
+                
+                1. Print out all Results associated this account by time
+                2. Print all results from swimmer, by swim time
+                3. Print results from swimmer, by Location
+                4. Print result from swimmer, by Rank
+                5. Print result from swimmer, by competitiveness
+                6. Print result from swimmer, by date if event
+                0. Cancel""");
+    }
+
+    public void promptMinutes() {
+        System.out.print("Please enter minutes: ");
+    }
+
+    public void promptSeconds() {
+        System.out.print("Please enter seconds ");
+    }
+
+    public void printOutResultLabels() {
+        System.out.printf("%-15s%-15s%-15s%-15s%s%n",
+            "LOCATION:",
+            "DATE:",
+            "TIME:",
+            "RANK:",
+            "COMPETITIVE:");
+    }
+
+    public void printOutResult(MembershipInfo.SwimmingDisciplineResult result) {
+        System.out.printf("%-15s%-15s%d:%-15d%-15d%b%n",
+                result.location(),
+                result.dateOfEvent(),
+                result.swimTime()/60,
+                result.swimTime()%60,
+                result.rank(),
+                result.isCompetitive());
+    }
+
+
 
     // Swimming Discipline Prompt and prints --------------------------------
     public void promptSwimmingDisciplineType() {System.out.print("Please enter Swimming Discipline Type: ");}
@@ -116,19 +179,95 @@ public class SystemPrint {
     public void printOutSomethingWentWrong() {
         System.out.println("Something Went Wrong\n");
     }
-    public void printOutMemberListEmpty() {
-        System.out.println("Member-list is empty, your request is not possible\n");
-    }
+    public void printOutMemberListEmpty() {System.out.println("Member-list is empty, your request is not possible\n");}
     public void printOutNoSwimmingResults() {
         System.out.println("This swimmer has no swimming results\n");
-    }
-
-    public void printOutEmployeeNotExist() {
-        System.out.println("Employee does not exist\n");
     }
 
     // Menu messages ---------------------------------------------------------------------
     public void printOutReturnToMenu() {
         System.out.println("Returning to menu\n");
     }
+
+
+    // Association prompts and prints
+    public void printOutPersonLabels(CoachMemberAssociation<Employee, MembershipInfo, Person> association) {
+        System.out.println("--------------------");
+        System.out.printf("ID: %-5d%s%n",
+                association.getPerson().getID(),
+                association.getPerson().getName());
+        System.out.println("--------------------");
+    }
+
+    public void printOutPersonDetails(Person person) {
+        System.out.printf("%s%-5d%s%-10s%s%-15s%s%-15s%s%-10s%n",
+                "ID: ", person.getID(),
+                "NAME: ", person.getName(),
+                "BIRTH: ", person.getAge(),
+                "TEL: ", person.getPhoneNumber(),
+                "GENDER: ", person.getGender());
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

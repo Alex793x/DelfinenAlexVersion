@@ -42,13 +42,21 @@ public class MembershipHandler {
         SystemPrint.getInstance().promptDateOfEvent();
         LocalDate dateOfEvent = UI.getInstance().readDateOfEvent();
 
+        SystemPrint.getInstance().promptMinutes();
+        int minutes = UI.getInstance().readInt();
+        SystemPrint.getInstance().promptSeconds();
+        int seconds = UI.getInstance().readInt();
+        int conversion = (minutes * 60) + seconds;
+
         SystemPrint.getInstance().promptRank();
         int rank = UI.getInstance().readInt();
 
         SystemPrint.getInstance().promptIsCompetitive();
-        boolean isCompetitive = UI.getInstance().readBoolean();
+        boolean isCompetitive = UI.getInstance().readCompetitiveness();
 
-        return new MembershipInfo.SwimmingDisciplineResult(location,dateOfEvent,rank,isCompetitive);
+
+
+        return new MembershipInfo.SwimmingDisciplineResult(location,dateOfEvent,conversion,rank,isCompetitive);
     }
 
 

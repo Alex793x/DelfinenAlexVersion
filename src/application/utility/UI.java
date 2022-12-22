@@ -43,6 +43,20 @@ public class UI {
         }
     }
 
+    public boolean readCompetitiveness() {
+        while (true) {
+            try {
+                switch (readInt()) {
+                    case 1 -> {return true;}
+                    case 2 -> {return false;}
+                    default -> SystemPrint.getInstance().printOutInvalidInput();
+                }
+            } catch (IllegalArgumentException e) {
+                SystemPrint.getInstance().printOutSomethingWentWrong();
+            }
+        }
+    }
+
     // DATE OF BIRTH / DATE OF EVENT ------------ etc
     public LocalDate readDateOfEvent() {
 
