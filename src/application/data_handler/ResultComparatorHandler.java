@@ -6,18 +6,17 @@ import application.actors.Person;
 import application.controllers.DataController;
 import application.utility.SystemPrint;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ResultComparatorHandler {
 
-    public void printAllResults(DataController dataController, int ID) {
+    public void printAllResults(int ID) {
         ListContainer.getInstance().getAssociationHashSet().stream()
                 .filter(association -> association.getEmployee().getID()==ID)
                 .forEach(association -> {
                     SystemPrint.getInstance().printOutPersonLabels(association);
+                    SystemPrint.getInstance().printOutResultLabels();
                     association.getMember().getResultList().stream()
                             .sorted(Comparator.comparing(MembershipInfo.SwimmingDisciplineResult::swimTime))
                             .forEach(result ->  SystemPrint.getInstance().printOutResult(result));

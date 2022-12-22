@@ -54,7 +54,7 @@ public class CoachMenu extends Menu {
         while(true) {
             SystemPrint.getInstance().printOutResultMenu();
             switch (UI.getInstance().readInt()) {
-                case 1 -> dataController.getResultComparatorHandler().printAllResults(dataController, ID);
+                case 1 -> dataController.getResultComparatorHandler().printAllResults( ID);
                 case 2 -> dataController.getResultComparatorHandler().printSortedByTime(dataController, ID);
                 case 3 -> dataController.getResultComparatorHandler().printSortedByLocation(dataController, ID);
                 case 4 -> dataController.getResultComparatorHandler().printSortedByRank(dataController, ID);
