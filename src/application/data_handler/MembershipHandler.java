@@ -39,8 +39,9 @@ public class MembershipHandler {
         SystemPrint.getInstance().promptLocation();
         String location = UI.getInstance().readLine();
 
-        SystemPrint.getInstance().promptDateOfEvent();
         LocalDate dateOfEvent = UI.getInstance().readDateOfEvent();
+        MembershipInfo.SwimmingDisciplineType disciplineType = UI.getInstance().readDisciplineType();
+        int distance = UI.getInstance().readDistance();
 
         SystemPrint.getInstance().promptMinutes();
         int minutes = UI.getInstance().readInt();
@@ -56,7 +57,13 @@ public class MembershipHandler {
 
 
 
-        return new MembershipInfo.SwimmingDisciplineResult(location,dateOfEvent,conversion,rank,isCompetitive);
+        return new MembershipInfo.SwimmingDisciplineResult(location,
+                dateOfEvent,
+                disciplineType,
+                distance,
+                conversion,
+                rank,
+                isCompetitive);
     }
 
 
@@ -69,7 +76,7 @@ public class MembershipHandler {
             SystemPrint.getInstance().printOutSettingMaxDisciplines();
             amount = 5;
         }
-        while (amount != 0) {
+        while (amount != 1) {
             disciplineTypes.add(UI.getInstance().readDisciplineType());
             amount--;
             SystemPrint.getInstance().printOut("You still need to enter " + amount + " disciplines");

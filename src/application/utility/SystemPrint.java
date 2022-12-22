@@ -119,16 +119,26 @@ public class SystemPrint {
                 """);
     }
 
+    public void promptDistance() {
+        System.out.println("""
+                
+                Please chose:
+                1. 100 meter
+                2. 200 meter
+                3. 300 meter""");
+    }
+
     public void printOutResultMenu() {
         System.out.println(
                 """
                 
                 1. Print out all Results associated this account by time
-                2. Print all results from swimmer, by swim time
-                3. Print results from swimmer, by Location
-                4. Print result from swimmer, by Rank
-                5. Print result from swimmer, by competitiveness
-                6. Print result from swimmer, by date if event
+                2. Print out all results for a swimmer
+                3. Print results from swimmer, by swim time
+                4. Print results from swimmer, by Location
+                5. Print results from swimmer, by Rank
+                6. Print results from swimmer, by competitiveness
+                7. Print results from swimmer, by date if event
                 0. Cancel""");
     }
 
@@ -141,22 +151,26 @@ public class SystemPrint {
     }
 
     public void printOutResultLabels() {
-        System.out.printf("%-15s%-15s%-15s%-15s%s%n",
-            "LOCATION:",
-            "DATE:",
-            "TIME:",
-            "RANK:",
-            "COMPETITIVE:");
+        System.out.printf("%-15s%-15s%-15s%-15s%-15s%-15s%s%n",
+                "DISTANCE:",
+                "LOCATION:",
+                "DATE:",
+                "TIME:",
+                "RANK:",
+                "COMPETITIVE",
+                "DISCIPLINE");
     }
 
     public void printOutResult(MembershipInfo.SwimmingDisciplineResult result) {
-        System.out.printf("%-15s%-15s%d:%-15d%-15d%b%n",
+        System.out.printf("%-15d%-15s%-15s%d:%-15d%-15d%-15b%s%n",
+                result.distance(),
                 result.location(),
                 result.dateOfEvent(),
                 result.swimTime()/60,
                 result.swimTime()%60,
                 result.rank(),
-                result.isCompetitive());
+                result.isCompetitive(),
+                result.swimmingDisciplineType());
     }
 
 
@@ -199,8 +213,16 @@ public class SystemPrint {
         System.out.println("--------------------");
     }
 
+    public void printOutPersonLabel(Person swimmer) {
+        System.out.println("--------------------");
+        System.out.printf("ID: %-5d%s%n",
+                swimmer.getID(),
+                swimmer.getName());
+        System.out.println("--------------------");
+    }
+
     public void printOutPersonDetails(Person person) {
-        System.out.printf("%s%-5d%s%-10s%s%-15s%s%-15s%s%-10s%n",
+        System.out.printf("%s%-10d%s%-15s%s%-15s%s%-15s%s%-10s%n",
                 "ID: ", person.getID(),
                 "NAME: ", person.getName(),
                 "BIRTH: ", person.getAge(),

@@ -55,11 +55,12 @@ public class CoachMenu extends Menu {
             SystemPrint.getInstance().printOutResultMenu();
             switch (UI.getInstance().readInt()) {
                 case 1 -> dataController.getResultComparatorHandler().printAllResults( ID);
-                case 2 -> dataController.getResultComparatorHandler().printSortedByTime(dataController, ID);
-                case 3 -> dataController.getResultComparatorHandler().printSortedByLocation(dataController, ID);
-                case 4 -> dataController.getResultComparatorHandler().printSortedByRank(dataController, ID);
-                case 5 -> dataController.getResultComparatorHandler().printSortedByCompetitiveness(dataController, ID);
-                case 6 -> dataController.getResultComparatorHandler().printSortedByDate(dataController, ID);
+                case 2 -> dataController.getResultComparatorHandler().printAllResultsForSwimmer(dataController, ID);
+                case 3 -> dataController.getResultComparatorHandler().printSortedByTime(dataController, ID);
+                case 4 -> dataController.getResultComparatorHandler().printSortedByLocation(dataController, ID);
+                case 5 -> dataController.getResultComparatorHandler().printSortedByRank(dataController, ID);
+                case 6 -> dataController.getResultComparatorHandler().printSortedByCompetitiveness(dataController, ID);
+                case 7 -> dataController.getResultComparatorHandler().printSortedByDate(dataController, ID);
                 case 0 -> {return;}
                 default -> SystemPrint.getInstance().printOutInvalidInput();
             }

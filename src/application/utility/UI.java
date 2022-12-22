@@ -59,7 +59,7 @@ public class UI {
 
     // DATE OF BIRTH / DATE OF EVENT ------------ etc
     public LocalDate readDateOfEvent() {
-
+        SystemPrint.getInstance().promptDateOfEvent();
         while(true) {
             SystemPrint.getInstance().printOut("Please enter year");
             int year = readInt();
@@ -135,6 +135,18 @@ public class UI {
 
             } catch (EnumConstantNotPresentException | NullPointerException | IllegalArgumentException e) {
                 SystemPrint.getInstance().printOut(e.getMessage());
+            }
+        }
+    }
+
+    public int readDistance() {
+        while (true) {
+            SystemPrint.getInstance().promptDistance();
+            switch (readInt()) {
+                case 1 -> {return 100;}
+                case 2 -> {return 200;}
+                case 3 -> {return 500;}
+                default -> SystemPrint.getInstance().printOutInvalidInput();
             }
         }
     }

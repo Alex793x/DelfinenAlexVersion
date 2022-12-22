@@ -8,7 +8,6 @@ public class DataController {
     PersonHandler personHandler = new PersonHandler();
     AssociationHandler associationHandler = new AssociationHandler();
     PersonComparatorHandler comparatorHandler = new PersonComparatorHandler();
-    MembershipInfoComparatorHandler membershipInfoComparatorHandler = new MembershipInfoComparatorHandler();
     ResultComparatorHandler resultComparatorHandler = new ResultComparatorHandler();
 
     // Getter ----------------------------------------------------
@@ -31,10 +30,6 @@ public class DataController {
 
     public PersonComparatorHandler getPersonComparatorHandler() {
         return comparatorHandler;
-    }
-
-    public MembershipInfoComparatorHandler getMembershipInfoComparatorHandler() {
-        return membershipInfoComparatorHandler;
     }
 
     public ResultComparatorHandler getResultComparatorHandler() {

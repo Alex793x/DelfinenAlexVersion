@@ -17,7 +17,10 @@ public class MembershipInfo {
         BREASTSTROKE,
         BUTTERFLY
     }
-    public record SwimmingDisciplineResult(String location, LocalDate dateOfEvent, int swimTime , int rank, boolean isCompetitive) {
+    public record SwimmingDisciplineResult(String location, LocalDate dateOfEvent,
+                                           SwimmingDisciplineType swimmingDisciplineType, int distance,
+                                           int swimTime ,
+                                           int rank, boolean isCompetitive) {
     }
 
     protected MemberType memberType;
@@ -59,6 +62,10 @@ public class MembershipInfo {
     }
     public void setMembershipStatus() {
         membershipStatus = !membershipStatus;
+    }
+
+    public void setMembershipStatus(boolean membershipStatus) {
+        this.membershipStatus = membershipStatus;
     }
     public void setHasPaid(boolean input) {
         if (input) {
