@@ -1,5 +1,6 @@
 package application.filehandler;
 
+import actor_container.CoachMemberAssociation;
 import actor_container.ListContainer;
 import application.actors.Employee;
 import application.actors.MembershipInfo;
@@ -12,11 +13,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class FileReader {
     BufferedReader reader;
 
     public void readMemberList(DataController dataController) {
+
         try {
             reader = new BufferedReader(new java.io.FileReader("memberlist.txt"));
             String line;
@@ -28,9 +32,9 @@ public class FileReader {
                 boolean isHasPaid = Boolean.parseBoolean(tokens[2]);
                 int personID = Integer.parseInt(tokens[3]);
                 String personName = tokens[4];
-                LocalDate personAge = LocalDate.parse(tokens[4]);
-                String personPhoneNumber = tokens[5];
-                char personGender = tokens[6].charAt(0);
+                LocalDate personAge = LocalDate.parse(tokens[5]);
+                String personPhoneNumber = tokens[6];
+                char personGender = tokens[7].charAt(0);
                 ArrayList<MembershipInfo.SwimmingDisciplineType> types = new ArrayList<>();
                 for (String token : tokens) {
                     if (token.equalsIgnoreCase("crawl") || token.equalsIgnoreCase("butterfly") ||
@@ -96,6 +100,42 @@ public class FileReader {
               });
           }
           reader.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public HashSet<CoachMemberAssociation<Employee, MembershipInfo, Person>> readAssociationList() {
+        HashSet<CoachMemberAssociation<Employee, MembershipInfo, Person>> associations = new HashSet<>();
+        try {
+            reader = new BufferedReader(new java.io.FileReader("associationlist.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(";");
+                int employeeID = Integer.parseInt(tokens[0]);
+                int swimmerID = Integer.parseInt(tokens[1]);
+
+                AtomicReference<Employee> employeePerson = new AtomicReference<>();
+                AtomicReference<MembershipInfo> membershipInfo = new AtomicReference<>();
+                AtomicReference<Person> swimmer = new AtomicReference<>();
+                ListContainer.getInstance().getMemberList()
+                        .forEach((membership, person) -> {
+                            if (person.getID() == swimmerID) {
+                                swimmer.set(person);
+                                membershipInfo.set(membership);
+                            }
+                        } );
+                ListContainer.getInstance().getEmployeeList()
+                        .forEach((employee, person) -> {
+                            if (employee.getID() == employeeID) {
+                                employeePerson.set(employee);
+                            }
+                        });
+
+                associations.add(new CoachMemberAssociation<>(employeePerson.get(),membershipInfo.get(),swimmer.get()));
+            }
+            reader.close();
+            return associations;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

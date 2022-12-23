@@ -6,6 +6,7 @@ import application.actors.Employee;
 import application.actors.MembershipInfo;
 import application.actors.Person;
 import application.controllers.DataController;
+import application.controllers.FileController;
 import application.controllers.MenuController;
 import application.filehandler.FileWriter;
 import application.utility.SystemPrint;
@@ -18,6 +19,8 @@ public class SystemBoot {
     Employee currentUser;
     DataController dataController = new DataController();
     MenuController menuController = new MenuController();
+    FileController fileController = new FileController();
+
 
     SystemBoot() {
         ListContainer.getInstance().getEmployeeList().put(new Employee(Employee.Privilege.ADMIN, "admin", "0000"),
@@ -35,12 +38,13 @@ public class SystemBoot {
     }
 
     private void menuUserLoader() {
+            fileController.getFileHandler().getFileReader().readEmployeeList();
+            fileController.getFileHandler().getFileReader().readLoginCredentials();
+            fileController.getFileHandler().getFileReader().readMemberList(dataController);
+            ListContainer.getInstance().setAssociationHashSet(fileController.getFileHandler().getFileReader().readAssociationList());
 
         while (true) {
             currentUser = menuController.login();
-            createRandomMembers();
-            createThousandResults();
-
             if (currentUser != null) {
 
                 switch (currentUser.getPrivilege()) {
