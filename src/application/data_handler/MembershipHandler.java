@@ -76,10 +76,12 @@ public class MembershipHandler {
             SystemPrint.getInstance().printOutSettingMaxDisciplines();
             amount = 5;
         }
-        while (amount != 1) {
+        while (amount != 0) {
             disciplineTypes.add(UI.getInstance().readDisciplineType());
             amount--;
-            SystemPrint.getInstance().printOut("You still need to enter " + amount + " disciplines");
+            if (amount != 0) {
+                SystemPrint.getInstance().printOut("You still need to enter " + amount + " disciplines");
+            }
         }
         return disciplineTypes;
     }

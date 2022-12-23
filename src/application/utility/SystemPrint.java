@@ -107,7 +107,7 @@ public class SystemPrint {
 
     // Result Prompts and prints ----------------------------------------
     public void promptLocation() {System.out.print("Please enter location of result: ");}
-    public void promptDateOfEvent() {System.out.println("Please enter date of event: ");}
+    public void promptDateOfEvent() {System.out.println("Please enter date: ");}
     public void promptRank() {System.out.print("Please enter given rank: ");}
     public void promptIsCompetitive() {
         System.out.println(

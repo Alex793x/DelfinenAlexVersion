@@ -16,7 +16,6 @@ public class PersonHandler {
         SystemPrint.getInstance().promptPersonName();
         String name = UI.getInstance().readLine();
 
-        SystemPrint.getInstance().promptPersonDateOfBirth();
         LocalDate dateOfBirth = UI.getInstance().readDateOfEvent();
 
         SystemPrint.getInstance().promptPersonPhoneNumber();

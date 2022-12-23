@@ -17,25 +17,26 @@ public class CoachMenu extends Menu {
         printOptions();
 
             switch (UI.getInstance().readInt()) {
-                case 1 -> addNewSwimmingResult(dataController);
-                case 2 -> deleteSwimmingResult(dataController);
+                case 1 -> addNewSwimmingResult(dataController, fileController);
+                case 2 -> deleteSwimmingResult(dataController, fileController);
                 case 3 -> printAllSwimmers(dataController, ID);
                 case 4 -> enterResultMenu(dataController, ID);
                 case 0 -> {return;}
                 default -> SystemPrint.getInstance().printOutInvalidInput();
             }
-            fileController.getFileHandler().getFileWriter().writeToResultList();
         }
     }
 
-    private void addNewSwimmingResult(DataController dataController) {
+    private void addNewSwimmingResult(DataController dataController, FileController fileController) {
         dataController.getMembershipHandler().findMembership(dataController).getResultList()
                 .add(dataController.getMembershipHandler().createNewResult());
+        fileController.getFileHandler().getFileWriter().writeToResultList();
 
     }
 
-    private void deleteSwimmingResult(DataController dataController) {
+    private void deleteSwimmingResult(DataController dataController, FileController fileController) {
         dataController.getMembershipHandler().deleteResult(dataController);
+        fileController.getFileHandler().getFileWriter().writeToResultList();
     }
 
     private void printAllSwimmers(DataController dataController, int ID) {

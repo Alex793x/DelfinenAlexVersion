@@ -10,4 +10,9 @@ public class FileController {
     public FileHandler getFileHandler() {
         return fileHandler;
     }
+
+    public void adminWriteToFiles() {
+        fileHandler.getFileWriter().writeToEmployeeList();
+        fileHandler.getFileWriter().writeToLoginCredentials();
+    }
 }

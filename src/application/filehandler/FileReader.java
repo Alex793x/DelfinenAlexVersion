@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class FileReader {
     BufferedReader reader;
 
-    public LinkedHashMap<MembershipInfo, Person> readMemberList(DataController dataController) {
+    public LinkedHashMap<MembershipInfo, Person> readMemberList() {
         LinkedHashMap<MembershipInfo, Person> map = new LinkedHashMap<>();
         try {
             reader = new BufferedReader(new java.io.FileReader("memberlist.txt"));
@@ -157,10 +157,10 @@ public class FileReader {
                 int rank = Integer.parseInt(tokens[6]);
                 boolean competitiveness = Boolean.parseBoolean(tokens[7]);
 
-                ListContainer.getInstance().getAssociationHashSet()
-                        .forEach(association -> {
-                            if (association.getPerson().getID() == personID) {
-                                association.getMember().getResultList()
+                ListContainer.getInstance().getMemberList()
+                        .forEach( (membershipInfo, person) -> {
+                            if (person.getID() == personID) {
+                                membershipInfo.getResultList()
                                         .add(new MembershipInfo.SwimmingDisciplineResult(
                                                 location,
                                                 dateOfEvent,

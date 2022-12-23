@@ -3,7 +3,7 @@ package application;
 public class SystemRun {
 
     private void run() {
-        SystemBoot startApplication = new SystemBoot();
+        new SystemBoot();
     }
 
     public static void main(String[] args) {

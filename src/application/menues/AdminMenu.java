@@ -17,8 +17,8 @@ public class AdminMenu extends Menu {
         while(true) {
             printOptions();
             switch (UI.getInstance().readInt()) {
-                case 1 -> createNewUser(dataController);
-                case 2 -> deleteUser(dataController);
+                case 1 -> createNewUser(dataController, fileController);
+                case 2 -> deleteUser(dataController, fileController);
                 case 3 -> advancedMenu(dataController, fileController);
                 case 0 -> {return;}
                 default -> SystemPrint.getInstance().printOutInvalidInput();
@@ -36,27 +36,39 @@ public class AdminMenu extends Menu {
                     0. Exit Advanced Options""");
 
             switch (UI.getInstance().readInt()) {
-                case 1 -> dataController.getEmployeeHandler().findEmployee().setUsername(UI.getInstance().readUsername());
-                case 2 -> dataController.getEmployeeHandler().findEmployee().setPassword(UI.getInstance().readPassword());
-                case 3 -> dataController.getEmployeeHandler().adminAccount().setUsername(UI.getInstance().readUsername());
-                case 4 -> dataController.getEmployeeHandler().adminAccount().setPassword(UI.getInstance().readPassword());
+                case 1 -> {
+                    dataController.getEmployeeHandler().findEmployee().setUsername(UI.getInstance().readUsername());
+                    fileController.adminWriteToFiles();
+                }
+                case 2 -> {
+                    dataController.getEmployeeHandler().findEmployee().setPassword(UI.getInstance().readPassword());
+                    fileController.adminWriteToFiles();
+                }
+                case 3 -> {
+                    dataController.getEmployeeHandler().adminAccount().setUsername(UI.getInstance().readUsername());
+                    fileController.adminWriteToFiles();
+                }
+                case 4 -> {
+                    dataController.getEmployeeHandler().adminAccount().setPassword(UI.getInstance().readPassword());
+                    fileController.adminWriteToFiles();
+                }
                 case 0 -> {return;}
                 default -> SystemPrint.getInstance().printOutInvalidInput();
             } // End of switch
-            fileController.getFileHandler().getFileWriter().writeToEmployeeList();
-            fileController.getFileHandler().getFileWriter().writeToLoginCredentials();
         } // End of while loop
     } // End of method
 
 
-    private void createNewUser(DataController dataController) {
+    private void createNewUser(DataController dataController, FileController fileController) {
         ListContainer.getInstance().getEmployeeList()
                 .put(dataController.getEmployeeHandler().createEmployee(),
                         dataController.getPersonHandler().createNewPerson());
+        fileController.adminWriteToFiles();
 
     }
 
-    private void deleteUser(DataController dataController) {
+    private void deleteUser(DataController dataController, FileController fileController) {
         dataController.getEmployeeHandler().deleteUser();
+        fileController.adminWriteToFiles();
     }
 }

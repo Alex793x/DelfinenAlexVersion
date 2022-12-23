@@ -29,7 +29,7 @@ public class FileWriter {
                 writer.write(set.getValue().getAge() + ";");
                 writer.write(set.getValue().getPhoneNumber() + ";");
                 writer.write(set.getValue().getGender() + ";");
-                for (int i = 0; i < set.getKey().getResultList().size(); i++) {
+                for (int i = 0; i < set.getKey().getActiveDisciplines().size(); i++) {
                     writer.write(set.getKey().getActiveDisciplines().get(i) + ";");
                 }
                 writer.newLine();
