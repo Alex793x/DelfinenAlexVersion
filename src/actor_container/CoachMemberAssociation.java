@@ -28,8 +28,4 @@ public class CoachMemberAssociation<Employee, MembershipInfo, Person>{
     }
 
     // Setter --------------------------------------
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
 }

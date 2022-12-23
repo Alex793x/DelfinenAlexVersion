@@ -68,7 +68,7 @@ public class FileWriter {
 
             for (CoachMemberAssociation<Employee,MembershipInfo,Person> set : ListContainer.getInstance().getAssociationHashSet()) {
                 writer.write(set.getEmployee().getID()+";");
-                writer.write(set.getPerson().getID()+";");
+                writer.write(set.getPerson().getID()+"");
                 writer.newLine();
             }
             writer.close();

@@ -4,6 +4,7 @@ import actor_container.ListContainer;
 import application.actors.MembershipInfo;
 import application.actors.Person;
 import application.controllers.DataController;
+import application.controllers.FileController;
 import application.utility.SystemPrint;
 import application.utility.UI;
 
@@ -16,7 +17,7 @@ public class TreasuryMenu extends Menu{
         super(menuHeader, leadText, menuOptions);
     }
 
-    public void menuLooping(DataController dataController) {
+    public void menuLooping(DataController dataController, FileController fileController) {
         while(true) {
             printOptions();
             switch (UI.getInstance().readInt()) {
@@ -26,6 +27,7 @@ public class TreasuryMenu extends Menu{
                 case 0 -> {return;}
                 default -> SystemPrint.getInstance().printOutInvalidInput();
             }
+            fileController.getFileHandler().getFileWriter().writeToMemberList();
         }
     }
 

@@ -3,6 +3,7 @@ package application.menues;
 import actor_container.ListContainer;
 import application.actors.MembershipInfo;
 import application.controllers.DataController;
+import application.controllers.FileController;
 import application.utility.SystemPrint;
 import application.utility.UI;
 
@@ -13,7 +14,7 @@ public class ChairmanMenu extends Menu {
         super(menuHeader, leadText, menuOptions);
     }
 
-    public void menuLoop(DataController dataController) {
+    public void menuLoop(DataController dataController, FileController fileController) {
         while (true) {
             printOptions();
 
@@ -25,6 +26,8 @@ public class ChairmanMenu extends Menu {
                 case 0 -> {return;}
                 default -> SystemPrint.getInstance().printOutInvalidInput();
             } // End of switch statement
+            fileController.getFileHandler().getFileWriter().writeToMemberList();
+            fileController.getFileHandler().getFileWriter().writeToAssociationList();
         } // End of while loop
     } // End of method
 

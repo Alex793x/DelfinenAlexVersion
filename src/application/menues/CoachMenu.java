@@ -1,6 +1,7 @@
 package application.menues;
 
 import application.controllers.DataController;
+import application.controllers.FileController;
 import application.utility.SystemPrint;
 import application.utility.UI;
 
@@ -11,7 +12,7 @@ public class CoachMenu extends Menu {
         super(menuHeader, leadText, menuOptions);
     }
 
-    public void menuLoop(DataController dataController, int ID) {
+    public void menuLoop(DataController dataController, FileController fileController, int ID) {
         while(true) {
         printOptions();
 
@@ -23,6 +24,7 @@ public class CoachMenu extends Menu {
                 case 0 -> {return;}
                 default -> SystemPrint.getInstance().printOutInvalidInput();
             }
+            fileController.getFileHandler().getFileWriter().writeToResultList();
         }
     }
 

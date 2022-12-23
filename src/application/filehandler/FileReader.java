@@ -14,13 +14,14 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class FileReader {
     BufferedReader reader;
 
-    public void readMemberList(DataController dataController) {
-
+    public LinkedHashMap<MembershipInfo, Person> readMemberList(DataController dataController) {
+        LinkedHashMap<MembershipInfo, Person> map = new LinkedHashMap<>();
         try {
             reader = new BufferedReader(new java.io.FileReader("memberlist.txt"));
             String line;
@@ -43,12 +44,11 @@ public class FileReader {
                         types.add(MembershipInfo.SwimmingDisciplineType.valueOf(token));
                     }
                 }
-
-                ListContainer.getInstance().getMemberList().put(new MembershipInfo(memberType, types),
-                        new Person(personName, personAge, personPhoneNumber, personGender));
-                dataController.getMembershipHandler().getLastLasMember().setMembershipStatus(isMembershipStatus);
-                dataController.getMembershipHandler().getLastLasMember().setHasPaid(isHasPaid);
-
+                MembershipInfo membershipInfo = new MembershipInfo(memberType, types);
+                Person person = new Person(personName,personAge,personPhoneNumber,personGender);
+                membershipInfo.setMembershipStatus(isMembershipStatus);
+                membershipInfo.setHasPaid(isHasPaid);
+                map.put(membershipInfo,person);
             }
 
             reader.close();
@@ -57,10 +57,11 @@ public class FileReader {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return map;
     }
 
-    public void readEmployeeList() {
-
+    public LinkedHashMap<Employee, Person> readEmployeeList() {
+        LinkedHashMap<Employee, Person> map = new LinkedHashMap<>();
         try {
             reader = new BufferedReader(new java.io.FileReader("employeelist.txt"));
             String line;
@@ -73,8 +74,7 @@ public class FileReader {
                 String phoneNumber = tokens[5];
                 char gender = tokens[6].charAt(0);
 
-                ListContainer.getInstance().getEmployeeList()
-                        .put(new Employee(privilege, username, ""), new Person(personName, personAge, phoneNumber, gender));
+                map.put(new Employee(privilege, username, ""), new Person(personName, personAge, phoneNumber, gender));
             }
             reader.close();
         } catch (FileNotFoundException e) {
@@ -82,6 +82,7 @@ public class FileReader {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return map;
     }
 
     public void readLoginCredentials() {
@@ -136,6 +137,43 @@ public class FileReader {
             }
             reader.close();
             return associations;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void readResults() {
+        try {
+            reader = new BufferedReader(new java.io.FileReader("resultlist.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(";");
+                int personID = Integer.parseInt(tokens[0]);
+                String location = tokens[1];
+                LocalDate dateOfEvent = LocalDate.parse(tokens[2]);
+                MembershipInfo.SwimmingDisciplineType disciplineType = MembershipInfo.SwimmingDisciplineType.valueOf(tokens[3]);
+                int distance = Integer.parseInt(tokens[4]);
+                int swimTime = Integer.parseInt(tokens[5]);
+                int rank = Integer.parseInt(tokens[6]);
+                boolean competitiveness = Boolean.parseBoolean(tokens[7]);
+
+                ListContainer.getInstance().getAssociationHashSet()
+                        .forEach(association -> {
+                            if (association.getPerson().getID() == personID) {
+                                association.getMember().getResultList()
+                                        .add(new MembershipInfo.SwimmingDisciplineResult(
+                                                location,
+                                                dateOfEvent,
+                                                disciplineType,
+                                                distance,
+                                                swimTime,
+                                                rank,
+                                                competitiveness
+                                                ));
+                            }
+                        });
+            }
+            reader.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
