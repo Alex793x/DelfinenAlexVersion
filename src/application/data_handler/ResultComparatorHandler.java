@@ -42,8 +42,8 @@ public class ResultComparatorHandler {
 
     private List<MembershipInfo.SwimmingDisciplineResult> sortedSwimmerResults(Person swimmer, int ID) {
         SystemPrint.getInstance().printOutPersonLabel(swimmer);
-        ListContainer.getInstance().getAssociationHashSet().stream().filter(
-                association -> association.getPerson().equals(swimmer))
+        ListContainer.getInstance().getAssociationHashSet().stream()
+                .filter(association -> association.getPerson().equals(swimmer))
                 .forEach(association ->SystemPrint.getInstance().printOut(association.getMember().getActiveDisciplines().toString()));
 
         MembershipInfo.SwimmingDisciplineType disciplineType = UI.getInstance().readDisciplineType();

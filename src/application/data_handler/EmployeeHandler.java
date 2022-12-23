@@ -36,7 +36,7 @@ public class EmployeeHandler {
     public Employee findEmployee() {
         String employeeName = UI.getInstance().readLine();
         for (Map.Entry<Employee, Person> set : ListContainer.getInstance().getEmployeeList().entrySet()) {
-            if (!set.getValue().getName().equals(employeeName)) continue; {
+            if (!set.getValue().getName().equalsIgnoreCase(employeeName)) continue; {
                 SystemPrint.getInstance().printOut("Coach " + set.getValue().getName() + " found");
                 return set.getKey();
             }

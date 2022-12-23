@@ -14,6 +14,7 @@ public class ListContainer {
     private LinkedHashMap<Employee, Person> employeeList;
     private LinkedHashMap<MembershipInfo, Person> memberList;
     private HashSet<CoachMemberAssociation<Employee, MembershipInfo, Person>> associationHashSet;
+    private Employee currentUser;
 
     // Constructor -----------------------------------------------
     private ListContainer() {
@@ -39,7 +40,10 @@ public class ListContainer {
         return associationHashSet;
     }
 
-    // Setter ----------------------------------------------------
+    public Employee getCurrentUser() {
+        return currentUser;
+    }
+// Setter ----------------------------------------------------
 
     public void setEmployeeList(LinkedHashMap<Employee, Person> employeeList) {
         this.employeeList = employeeList;
@@ -51,5 +55,9 @@ public class ListContainer {
 
     public void setAssociationHashSet(HashSet<CoachMemberAssociation<Employee, MembershipInfo, Person>> associationHashSet) {
         this.associationHashSet = associationHashSet;
+    }
+
+    public void setCurrentUser(Employee currentUser) {
+        this.currentUser = currentUser;
     }
 }

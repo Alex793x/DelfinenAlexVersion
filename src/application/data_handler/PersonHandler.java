@@ -31,7 +31,7 @@ public class PersonHandler {
         SystemPrint.getInstance().promptPersonName();
         String name = UI.getInstance().readLine();
         ArrayList<Person> possiblePersons = new ArrayList<>(ListContainer.getInstance().getMemberList().values().stream()
-                .filter(person -> person.getName().equals(name)).toList());
+                .filter(person -> person.getName().equalsIgnoreCase(name)).toList());
 
         if (!possiblePersons.isEmpty()) {
             possiblePersons.forEach(

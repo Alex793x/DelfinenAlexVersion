@@ -1,14 +1,12 @@
 package application;
 
 import actor_container.ListContainer;
-import application.actors.Employee;
 import application.controllers.DataController;
 import application.controllers.FileController;
 import application.controllers.MenuController;
 import application.utility.SystemPrint;
 
 public class SystemBoot {
-    Employee currentUser;
     DataController dataController = new DataController();
     MenuController menuController = new MenuController();
     FileController fileController = new FileController();
@@ -26,14 +24,14 @@ public class SystemBoot {
         fileController.getFileHandler().getFileReader().readResults();
 
         while (true) {
-            currentUser = menuController.login();
-            if (currentUser != null) {
+            ListContainer.getInstance().setCurrentUser(menuController.login());
+            if (ListContainer.getInstance().getCurrentUser() != null) {
 
-                switch (currentUser.getPrivilege()) {
+                switch (ListContainer.getInstance().getCurrentUser().getPrivilege()) {
                     case ADMIN -> menuController.adminMenu(dataController, fileController);
                     case CHAIRMAN -> menuController.chairmanMenu(dataController, fileController);
                     case ACCOUNTANT -> menuController.treasuryMenu(dataController, fileController);
-                    case COACH -> menuController.coachMenu(dataController, fileController, currentUser.getID());
+                    case COACH -> menuController.coachMenu(dataController, fileController, ListContainer.getInstance().getCurrentUser().getID());
                     default -> SystemPrint.getInstance().printOutSomethingWentWrong();
                 } // End of Switch case
             } else {
