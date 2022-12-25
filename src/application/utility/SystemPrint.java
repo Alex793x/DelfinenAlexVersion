@@ -128,6 +128,19 @@ public class SystemPrint {
                 3. 300 meter""");
     }
 
+    public void promptTimeFrame() {
+        System.out.println("""
+                
+                Please choose:
+                1. 3 months old results
+                2. 6 months old results
+                3. 1 year old results
+                4. 3 years old results
+                5. 6 years old results
+                6. 10 years old results
+                4. All time""");
+    }
+
     public void printOutResultMenu() {
         System.out.println(
                 """
@@ -139,6 +152,7 @@ public class SystemPrint {
                 5. Print results from swimmer, by Rank
                 6. Print results from swimmer, by competitiveness
                 7. Print results from swimmer, by date if event
+                8. Print out top 5 swimmers and their best result
                 0. Cancel""");
     }
 
@@ -205,8 +219,8 @@ public class SystemPrint {
 
 
     // Association prompts and prints
-    public void printOutPersonLabels(CoachMemberAssociation<Employee, MembershipInfo, Person> association) {
-        System.out.println("--------------------");
+    public void printOutPersonLabelsThroughAssociation(CoachMemberAssociation<Employee, MembershipInfo, Person> association) {
+        System.out.println("\n--------------------");
         System.out.printf("ID: %-5d%s%n",
                 association.getPerson().getID(),
                 association.getPerson().getName());
@@ -214,7 +228,7 @@ public class SystemPrint {
     }
 
     public void printOutPersonLabel(Person swimmer) {
-        System.out.println("--------------------");
+        System.out.println("\n--------------------");
         System.out.printf("ID: %-5d%s%n",
                 swimmer.getID(),
                 swimmer.getName());

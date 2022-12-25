@@ -2,4 +2,3 @@ admin;0000;
 chairman;1234;
 Alexthh;1234
 account;0000;
-patty;1234;

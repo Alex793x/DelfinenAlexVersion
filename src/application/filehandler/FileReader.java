@@ -5,17 +5,13 @@ import actor_container.ListContainer;
 import application.actors.Employee;
 import application.actors.MembershipInfo;
 import application.actors.Person;
-import application.controllers.DataController;
-import application.utility.SystemPrint;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class FileReader {
     BufferedReader reader;
@@ -50,14 +46,12 @@ public class FileReader {
                 membershipInfo.setHasPaid(isHasPaid);
                 map.put(membershipInfo,person);
             }
-
             reader.close();
-        } catch (FileNotFoundException e) {
-            SystemPrint.getInstance().printOutFileNotExist();
+            return map;
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return map;
     }
 
     public LinkedHashMap<Employee, Person> readEmployeeList() {
@@ -77,12 +71,10 @@ public class FileReader {
                 map.put(new Employee(privilege, username, ""), new Person(personName, personAge, phoneNumber, gender));
             }
             reader.close();
-        } catch (FileNotFoundException e) {
-            SystemPrint.getInstance().printOutFileNotExist();
+            return map;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return map;
     }
 
     public void readLoginCredentials() {
@@ -106,7 +98,7 @@ public class FileReader {
         }
     }
 
-    public HashSet<CoachMemberAssociation<Employee, MembershipInfo, Person>> readAssociationList() {
+    public void readAssociationList() {
         HashSet<CoachMemberAssociation<Employee, MembershipInfo, Person>> associations = new HashSet<>();
         try {
             reader = new BufferedReader(new java.io.FileReader("associationlist.txt"));
@@ -116,27 +108,22 @@ public class FileReader {
                 int employeeID = Integer.parseInt(tokens[0]);
                 int swimmerID = Integer.parseInt(tokens[1]);
 
-                AtomicReference<Employee> employeePerson = new AtomicReference<>();
-                AtomicReference<MembershipInfo> membershipInfo = new AtomicReference<>();
-                AtomicReference<Person> swimmer = new AtomicReference<>();
                 ListContainer.getInstance().getMemberList()
-                        .forEach((membership, person) -> {
-                            if (person.getID() == swimmerID) {
-                                swimmer.set(person);
-                                membershipInfo.set(membership);
+                        .forEach((membershipInfo, swimmer) -> {
+                            if (swimmer.getID() == swimmerID) {
+
+                                ListContainer.getInstance().getEmployeeList()
+                                        .forEach((employee, person) -> {
+                                            if (employee.getID() == employeeID) {
+                                                ListContainer.getInstance().getAssociationHashSet()
+                                                        .add(new CoachMemberAssociation<>(employee, membershipInfo, swimmer));
+                                            }
+                                        });
+
                             }
                         } );
-                ListContainer.getInstance().getEmployeeList()
-                        .forEach((employee, person) -> {
-                            if (employee.getID() == employeeID) {
-                                employeePerson.set(employee);
-                            }
-                        });
-
-                associations.add(new CoachMemberAssociation<>(employeePerson.get(),membershipInfo.get(),swimmer.get()));
             }
             reader.close();
-            return associations;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -157,10 +144,10 @@ public class FileReader {
                 int rank = Integer.parseInt(tokens[6]);
                 boolean competitiveness = Boolean.parseBoolean(tokens[7]);
 
-                ListContainer.getInstance().getMemberList()
-                        .forEach( (membershipInfo, person) -> {
-                            if (person.getID() == personID) {
-                                membershipInfo.getResultList()
+                ListContainer.getInstance().getAssociationHashSet()
+                        .forEach( (association) -> {
+                            if (association.getPerson().getID() == personID) {
+                                association.getMember().getResultList()
                                         .add(new MembershipInfo.SwimmingDisciplineResult(
                                                 location,
                                                 dateOfEvent,

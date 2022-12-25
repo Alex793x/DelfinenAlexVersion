@@ -7,8 +7,8 @@ import application.controllers.DataController;
 import application.utility.SystemPrint;
 import application.utility.UI;
 
-import java.util.Comparator;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
 
 public class ResultComparatorHandler {
 
@@ -16,7 +16,7 @@ public class ResultComparatorHandler {
         ListContainer.getInstance().getAssociationHashSet().stream()
                 .filter(association -> association.getEmployee().getID()==ID)
                 .forEach(association -> {
-                    SystemPrint.getInstance().printOutPersonLabels(association);
+                    SystemPrint.getInstance().printOutPersonLabelsThroughAssociation(association);
                     SystemPrint.getInstance().printOutResultLabels();
                     association.getMember().getResultList().stream()
                             .sorted(Comparator.comparing(MembershipInfo.SwimmingDisciplineResult::swimTime))
@@ -27,11 +27,14 @@ public class ResultComparatorHandler {
     public void printAllResultsForSwimmer(DataController dataController ,int ID) {
         Person swimmer = dataController.getPersonHandler().findPerson();
         SystemPrint.getInstance().printOutPersonLabel(swimmer);
+        if (ListContainer.getInstance().getAssociationHashSet().isEmpty()) {
+            SystemPrint.getInstance().printOut("Empty");
+        }
         ListContainer.getInstance().getAssociationHashSet().stream()
                 .filter(association -> association.getEmployee().getID()==ID)
                 .filter(association -> association.getPerson().equals(swimmer))
                 .forEach(association -> {
-                    SystemPrint.getInstance().printOutPersonLabels(association);
+                    SystemPrint.getInstance().printOutPersonLabelsThroughAssociation(association);
                     SystemPrint.getInstance().printOut(association.getMember().getActiveDisciplines().toString());
                     SystemPrint.getInstance().printOutResultLabels();
                     association.getMember().getResultList().stream()
@@ -87,4 +90,35 @@ public class ResultComparatorHandler {
                 .sorted(Comparator.comparing(MembershipInfo.SwimmingDisciplineResult::dateOfEvent))
                 .forEach(result -> SystemPrint.getInstance().printOutResult(result));
     }
+
+
+    public void topFiveCompetitor() {
+        int distance = UI.getInstance().readDistance();
+        MembershipInfo.SwimmingDisciplineType disciplineType = UI.getInstance().readDisciplineType();
+        boolean competitive = UI.getInstance().readCompetitiveness();
+        LocalDate timeFrame = UI.getInstance().chooseTimeFrame();
+
+        // Find the top five swimmers and their best result
+        List<AbstractMap.SimpleEntry<Person, MembershipInfo.SwimmingDisciplineResult>> topFiveSwimmers = ListContainer.getInstance().getAssociationHashSet().stream()
+                .flatMap(association -> association.getMember().getResultList().stream()
+                        .filter(result -> result.distance() == distance)
+                        .filter(result -> result.swimmingDisciplineType().equals(disciplineType))
+                        .filter(result -> result.isCompetitive() == competitive)
+                        .filter(result -> result.dateOfEvent().isAfter(timeFrame) || result.dateOfEvent().equals(timeFrame))
+                        .sorted(Comparator.comparing(MembershipInfo.SwimmingDisciplineResult::swimTime))
+                        .limit(1)
+                        .map(result -> new AbstractMap.SimpleEntry<>(association.getPerson(), result)))
+                .sorted(Map.Entry.comparingByValue(Comparator.comparing(MembershipInfo.SwimmingDisciplineResult::swimTime)))
+                .limit(5).toList();
+
+        // Print the top five swimmers and their best result
+        topFiveSwimmers.forEach(entry -> {
+            Person person = entry.getKey();
+            MembershipInfo.SwimmingDisciplineResult result = entry.getValue();
+            SystemPrint.getInstance().printOutPersonLabel(person);
+            SystemPrint.getInstance().printOutResultLabels();
+            SystemPrint.getInstance().printOutResult(result);
+        });
+    }
+
 }

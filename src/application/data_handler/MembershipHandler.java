@@ -52,7 +52,6 @@ public class MembershipHandler {
         SystemPrint.getInstance().promptRank();
         int rank = UI.getInstance().readInt();
 
-        SystemPrint.getInstance().promptIsCompetitive();
         boolean isCompetitive = UI.getInstance().readCompetitiveness();
 
 

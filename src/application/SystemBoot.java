@@ -19,8 +19,8 @@ public class SystemBoot {
     private void menuUserLoader() {
         ListContainer.getInstance().setEmployeeList(fileController.getFileHandler().getFileReader().readEmployeeList());
         fileController.getFileHandler().getFileReader().readLoginCredentials();
-        ListContainer.getInstance().setAssociationHashSet(fileController.getFileHandler().getFileReader().readAssociationList());
         ListContainer.getInstance().setMemberList(fileController.getFileHandler().getFileReader().readMemberList());
+        fileController.getFileHandler().getFileReader().readAssociationList();
         fileController.getFileHandler().getFileReader().readResults();
 
         while (true) {

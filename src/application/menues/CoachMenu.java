@@ -64,6 +64,7 @@ public class CoachMenu extends Menu {
                 case 5 -> dataController.getResultComparatorHandler().printSortedByRank(dataController, ID);
                 case 6 -> dataController.getResultComparatorHandler().printSortedByCompetitiveness(dataController, ID);
                 case 7 -> dataController.getResultComparatorHandler().printSortedByDate(dataController, ID);
+                case 8 -> dataController.getResultComparatorHandler().topFiveCompetitor();
                 case 0 -> {return;}
                 default -> SystemPrint.getInstance().printOutInvalidInput();
             }

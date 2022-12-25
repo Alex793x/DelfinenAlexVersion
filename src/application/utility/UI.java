@@ -45,6 +45,7 @@ public class UI {
 
     public boolean readCompetitiveness() {
         while (true) {
+            SystemPrint.getInstance().promptIsCompetitive();
             try {
                 switch (readInt()) {
                     case 1 -> {return true;}
@@ -145,7 +146,23 @@ public class UI {
             switch (readInt()) {
                 case 1 -> {return 100;}
                 case 2 -> {return 200;}
-                case 3 -> {return 500;}
+                case 3 -> {return 300;}
+                default -> SystemPrint.getInstance().printOutInvalidInput();
+            }
+        }
+    }
+
+    public LocalDate chooseTimeFrame() {
+        while (true) {
+            SystemPrint.getInstance().promptTimeFrame();
+            switch (readInt()) {
+                case 1 -> {return LocalDate.now().minusMonths(3);}
+                case 2 -> {return LocalDate.now().minusMonths(6);}
+                case 3 -> {return LocalDate.now().minusYears(1);}
+                case 4 -> {return LocalDate.now().minusYears(3);}
+                case 5 -> {return LocalDate.now().minusYears(6);}
+                case 6 -> {return LocalDate.now().minusYears(10);}
+                case 7 -> {return LocalDate.now().minusYears(999);}
                 default -> SystemPrint.getInstance().printOutInvalidInput();
             }
         }
